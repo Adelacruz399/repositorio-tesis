@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Repositorio de Tesis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+  <style>
+    :root {
+      --color-primario: #ff6b00;
+      --color-secundario: #ff8c33;
+      --color-acento: #004aad;
+      --color-texto: #333333;
+      --color-fondo: #fff9f5;
+    }
+    
+    body {
+      background-color: var(--color-fondo);
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--color-texto);
+    }
+
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      color: var(--color-primario) !important;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      margin-right: 10px;
+      color: var(--color-texto) !important;
+    }
+
+    .nav-link:hover {
+      background-color: var(--color-acento);
+      color: white !important;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    /* BANNER DE INTEGRANTES */
+    .team-banner {
+      background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px auto;
+      box-shadow: 0 8px 20px rgba(255, 107, 0, 0.2);
+    }
+    
+    .team-title {
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .team-member {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .member-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .member-photo:hover {
+      transform: scale(1.1);
+    }
+    
+    .member-name {
+      margin-top: 10px;
+      color: white;
+      font-weight: 600;
+    }
+    
+    .member-role {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+
+    .repo-btn {
+      background-color: var(--color-acento);
+      color: white;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin: 40px auto;
+      display: block;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .repo-btn:hover {
+      background-color: #003080;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .cronograma-table th {
+      background-color: var(--color-primario);
+      color: white;
+      text-align: center;
+    }
+
+    .cronograma-table td {
+      background-color: rgba(255, 107, 0, 0.1);
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .hover-link {
+      display: inline-block;
+      transition: 0.3s ease;
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: var(--color-texto) !important;
+    }
+
+    .hover-link:hover {
+      background-color: var(--color-acento);
+      color: white !important;
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+    
+    .cronograma-table td, .cronograma-table th {
+      vertical-align: top;
+    }
+    
+    .sticky-top {
+      z-index: 1020;
+    }
+    
+    /* Contenedor de búsqueda */
+    #tablaTesis_filter {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    /* Elimina el label por defecto, se verá con placeholder */
+    #tablaTesis_filter label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    /* Estilo moderno del input */
+    #tablaTesis_filter input[type="search"] {
+      flex: 1;
+      padding-left: 35px;
+      height: 40px;
+      font-size: 1rem;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
+      background-size: 20px;
+      background-repeat: no-repeat;
+      background-position: 10px center;
+      background-color: #fff;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Efecto al enfocar */
+    #tablaTesis_filter input[type="search"]:focus {
+      outline: none;
+      border-color: var(--color-acento);
+      box-shadow: 0 0 0 0.2rem rgba(0, 74, 173, 0.25);
+    }
+    
+    /* Título de sección */
+    .section-title {
+      color: var(--color-primario);
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-primario);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-graduation-cap me-2"></i>Repositorio de Tesis
+      </a>
+      <div class="ms-auto d-flex gap-3">
+        <a class="nav-link fw-semibold" href="#"><i class="fas fa-home me-1"></i> Inicio</a>
+        <a class="nav-link fw-semibold" href="#"><i class="fas fa-calendar-alt me-1"></i> Cronograma</a>
+        <a class="nav-link fw-semibold" href="#"><i class="fas fa-users me-1"></i> Grupo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BANNER DE INTEGRANTES -->
+  <div class="container">
+    <div class="team-banner">
+      <h2 class="team-title">GRUPO 5 - INVESTIGADORES AUTÓNOMOS</h2>
+      <div class="row">
+        <div class="col-md-3 col-6 team-member">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Integrante 1" class="member-photo">
+          <h5 class="member-name">Juan Pérez</h5>
+          <p class="member-role">Coordinador</p>
+        </div>
+        <div class="col-md-3 col-6 team-member">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Integrante 2" class="member-photo">
+          <h5 class="member-name">María Gómez</h5>
+          <p class="member-role">Investigadora</p>
+        </div>
+        <div class="col-md-3 col-6 team-member">
+          <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Integrante 3" class="member-photo">
+          <h5 class="member-name">Carlos López</h5>
+          <p class="member-role">Documentador</p>
+        </div>
+        <div class="col-md-3 col-6 team-member">
+          <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Integrante 4" class="member-photo">
+          <h5 class="member-name">Ana Rodríguez</h5>
+          <p class="member-role">Diseñadora</p>
+        </div>
+      </div>
+      <!-- Sección del docente -->
+      <div class="text-center mb-4">
+        <div class="d-inline-block">
+          <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Docente" class="member-photo mb-2" style="width: 120px; height: 120px;">
+          <h5 class="member-name mb-0">Dr. Luis Martínez</h5>
+          <p class="member-role">Asesor de Tesis</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÓN CENTRAL -->
+  <div class="text-center">
+    <button class="repo-btn">
+      <i class="fa-solid fa-folder-open me-2"></i> ACCEDER AL REPOSITORIO
+    </button>
+  </div>
+
+  <!-- TÍTULO -->
+  <div class="container text-center mb-4">
+    <h2 class="section-title">CRONOGRAMA POR SEMANAS</h2>
+    <p class="text-muted">Planificación detallada del proyecto de investigación</p>
+  </div>
+
+  <!-- TABLA -->
+  <div class="container mb-5 mt-4">
+    <div class="table-responsive">
+      <table id="tablaTesis" class="table cronograma-table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>SEMANA</th>
+            <th>TEMAS</th>
+            <th>CLASES</th>
+            <th>ACTIVIDADES</th>
+            <th>OBSERVACIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1°</td>
+            <td>FORMULACIÓN DEL TÍTULO DE TESIS</td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-calendar me-1"></i> NOTAS TESIS I</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-word me-1"></i> Word Tesis I</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-image me-1"></i> IMAGEN TESIS I</a>
+            </td>
+          </tr>
+          <tr>
+            <td>2°</td>
+            <td>
+              ANÁLISIS DE TÍTULO DE TESIS DEFINIDO
+              <ul class="text-start small mt-2">
+                <li>Identificación del problema de investigación</li>
+                <li>Formulación de objetivos alineados al título</li>
+              </ul>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-calendar me-1"></i> NOTAS TESIS I</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-word me-1"></i> Word Tesis I</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-pdf me-1"></i> PDF Guía</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-image me-1"></i> IMAGEN TESIS I</a>
+            </td>
+          </tr>
+          <tr>
+            <td>3°</td>
+            <td>
+              MARCO TEÓRICO
+              <ul class="text-start small mt-2">
+                <li>Revisión de literatura</li>
+                <li>Identificación de teorías base</li>
+                <li>Definición de variables</li>
+              </ul>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-book me-1"></i> Bibliografía</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-word me-1"></i> Avance Marco</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-magnifying-glass me-1"></i> Investigación</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-link me-1"></i> Recursos</a>
+            </td>
+          </tr>
+          <tr>
+            <td>4°</td>
+            <td>
+              METODOLOGÍA
+              <ul class="text-start small mt-2">
+                <li>Diseño de investigación</li>
+                <li>Selección de métodos</li>
+                <li>Plan de recolección de datos</li>
+              </ul>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-lines me-1"></i> Plantilla</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-table me-1"></i> Tablas</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-chart-bar me-1"></i> Gráficos</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-comments me-1"></i> Feedback</a>
+            </td>
+          </tr>
+          <tr>
+            <td>5°</td>
+            <td>
+              RESULTADOS PRELIMINARES
+              <ul class="text-start small mt-2">
+                <li>Análisis de datos</li>
+                <li>Interpretación inicial</li>
+                <li>Validación con expertos</li>
+              </ul>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-chalkboard me-1"></i> Presentación</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-word me-1"></i> Resultados</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-chart-pie me-1"></i> Análisis</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-check me-1"></i> Validación</a>
+            </td>
+          </tr>
+          <tr>
+            <td>6°</td>
+            <td>
+              DISCUSIÓN Y CONCLUSIONES
+              <ul class="text-start small mt-2">
+                <li>Comparación con estudios previos</li>
+                <li>Limitaciones del estudio</li>
+                <li>Recomendaciones</li>
+              </ul>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-video me-1"></i> ZOOM</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-pen-to-square me-1"></i> Revisión</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-file-word me-1"></i> Conclusiones</a><br>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-list-check me-1"></i> Checklist</a>
+            </td>
+            <td>
+              <a href="#" class="hover-link text-decoration-none"><i class="fa-solid fa-flag me-1"></i> Finalización</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-university me-2"></i>Universidad Autónoma</h5>
+          <p class="small">Repositorio de proyectos de tesis 2025</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <p class="small mb-1">Grupo 5 - Investigadores Autónomos</p>
+          <p class="small mb-0">© 2025 Todos los derechos reservados</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#tablaTesis').DataTable({
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+        },
+        paging: false,
+        info: false,
+        responsive: true
+      });
+      
+      // Cambiar placeholder del buscador
+      $('#tablaTesis_filter input[type="search"]').attr('placeholder', 'Buscar en cronograma...');
+      
+      // Efecto hover para las filas de la tabla
+      $('.cronograma-table tbody tr').hover(
+        function() {
+          $(this).css('transform', 'translateX(5px)');
+          $(this).css('box-shadow', '0 4px 8px rgba(0,0,0,0.1)');
+        },
+        function() {
+          $(this).css('transform', 'translateX(0)');
+          $(this).css('box-shadow', 'none');
+        }
+      );
+    });
+  </script>
+</body>
+</html>
